@@ -14,7 +14,7 @@ void ofApp::setup() {
 	for (int i = 0; i < numSoundStreams; ++i) {
 		soundStreams[i].setup(5 + i, numOutputChannels, numInputChannels, bufferSize, &_audioProcessingMutex);
 	}
-	soundStreams[1].setOutputBufferRef(soundStreams[0].getInputBufferRef());
+	soundStreams[1].setOutputStream(&soundStreams[0]);
 }
 
 void ofApp::update() {

@@ -14,8 +14,13 @@ public:
 			int bufferSize,
 			ofMutex* audioProcessingMutex);
 
+	size_t getNumInputChannels();
+	size_t getNumOutputChannels();
+
+	size_t getBufferSize();
+
 	float* getInputBufferRef();
-	void setOutputBufferRef(float* outputBuffer);
+	void setOutputStream(mmSoundStream* outputStream);
 
 	void audioReceived(float* input, int bufferSize, int nChannels);
 	void audioRequested(float* output, int bufferSize, int nChannels);
@@ -31,6 +36,6 @@ private:
 
 	size_t _bufferSize;
 
-	float* _outputBuffer;
 	float* _inputBuffer;
+	mmSoundStream* _outputStream;
 };

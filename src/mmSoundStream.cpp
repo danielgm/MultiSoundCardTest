@@ -2,7 +2,7 @@
 
 mmSoundStream::mmSoundStream() {
 	_inputBuffer = NULL;
-	_outputBuffer = NULL;
+	_outputStream = NULL;
 }
 
 mmSoundStream::~mmSoundStream() {
@@ -38,12 +38,24 @@ void mmSoundStream::setup(
 	_soundStream.setOutput(this);
 }
 
+size_t mmSoundStream::getNumOutputChannels() {
+	return _numOutputChannels;
+}
+
+size_t mmSoundStream::getNumInputChannels() {
+	return _numInputChannels;
+}
+
+size_t mmSoundStream::getBufferSize() {
+	return _bufferSize;
+}
+
 float* mmSoundStream::getInputBufferRef() {
 	return _inputBuffer;
 }
 
-void mmSoundStream::setOutputBufferRef(float* outputBuffer) {
-	_outputBuffer = outputBuffer;
+void mmSoundStream::setOutputStream(mmSoundStream* outputStream) {
+	_outputStream = outputStream;
 }
 
 void mmSoundStream::audioReceived(float* input, int bufferSize, int numChannels) {
@@ -59,13 +71,13 @@ void mmSoundStream::audioReceived(float* input, int bufferSize, int numChannels)
 void mmSoundStream::audioRequested(float* output, int bufferSize, int numChannels) {
 	ofMutex::ScopedLock lock(*_audioProcessingMutex);
 
-	// FIXME: Okay, output is actually 2 channels and input is only 1 channel so bad sound.
-	// Can change numOutputChannels to 1 instead of 2 (in ofApp.cpp) to quickfix. Need to
-	// handle differing numbers of channels.
-	if (_outputBuffer != NULL) {
+	if (_outputStream != NULL) {
+		// TODO: Handle different buffer sizes.
+		float* inputBuffer = _outputStream->getInputBufferRef();
+		size_t numInputChannels = _outputStream->getNumInputChannels();
 		for (size_t i = 0; i < bufferSize; ++i) {
-			for (size_t c = 0; c < _numOutputChannels && c < numChannels; ++c) {
-				output[i * numChannels + c] = _outputBuffer[i * _numOutputChannels + c];
+			for (size_t c = 0; c < numChannels; ++c) {
+				output[i * numChannels + c] = inputBuffer[i * numInputChannels + (c % numInputChannels)];
 			}
 		}
 	}

@@ -4,25 +4,25 @@
 void ofApp::setup() {
 	ofSoundStream soundStream;
 	soundStream.listDevices();
-	
+
 	numOutputChannels = 2;
 	numInputChannels = 1;
 	bufferSize = 512;
-	
-	numSoundStreams = 3;
+
+	numSoundStreams = 2;
 	soundStreams = new mmSoundStream[numSoundStreams];
 	for (int i = 0; i < numSoundStreams; ++i) {
-		soundStreams[i].setup(5 + i, numOutputChannels, numInputChannels, bufferSize);
+		soundStreams[i].setup(5 + i, numOutputChannels, numInputChannels, bufferSize, &_audioProcessingMutex);
 	}
+	soundStreams[1].setOutputBufferRef(soundStreams[0].getInputBufferRef());
 }
 
 void ofApp::update() {
-
 }
 
 void ofApp::draw() {
 	ofBackground(0);
-	
+
 	for (int i = 0; i < numSoundStreams; ++i) {
 		drawSoundStream(&soundStreams[i], 0, i * 150, 512, 150);
 	}
@@ -30,7 +30,7 @@ void ofApp::draw() {
 
 void ofApp::drawSoundStream(mmSoundStream* ss, int x, int y, int width, int height) {
 	float* inputBuffer = ss->getInputBufferRef();
-	
+
 	ofSetColor(255, 255, 255);
 	for (int i = 0; i < numInputChannels * bufferSize; ++i) {
 		ofLine(x + i, y + height/2, x + i, y + height/2 - inputBuffer[i] * height/2);

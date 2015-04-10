@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxPd.h"
 
 class mmSoundStream : public ofBaseSoundInput, public ofBaseSoundOutput {
 
@@ -26,6 +27,7 @@ public:
 	void audioRequested(float* output, int bufferSize, int nChannels);
 
 private:
+	ofxPd pd;
 	int _deviceId;
 
 	ofMutex* _audioProcessingMutex;

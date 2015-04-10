@@ -20,6 +20,9 @@ void mmSoundStream::setup(
 		int numInputChannels,
 		int bufferSize,
 		ofMutex* audioProcessingMutex) {
+  size_t sampleRate = 44100;
+  size_t ticksPerBuffer = 8;
+
 	_deviceId = deviceId;
 	_audioProcessingMutex = audioProcessingMutex;
 
@@ -33,7 +36,12 @@ void mmSoundStream::setup(
 	}
 
 	_soundStream.setDeviceID(deviceId);
-	_soundStream.setup(_numOutputChannels, _numInputChannels, 44100, _bufferSize, 6);
+	_soundStream.setup(
+      _numOutputChannels,
+      _numInputChannels,
+      sampleRate,
+      _bufferSize,
+      2 * (_numOutputChannels + _numInputChannels));
 	_soundStream.setInput(this);
 	_soundStream.setOutput(this);
 }

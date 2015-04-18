@@ -85,6 +85,11 @@
 		03537C761AD79430000468A4 /* x_time.c in Sources */ = {isa = PBXBuildFile; fileRef = 03537C101AD7942F000468A4 /* x_time.c */; };
 		03537C781AD79430000468A4 /* ofxPd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03537C171AD79430000468A4 /* ofxPd.cpp */; };
 		03A1FD601A8FCCF60012741E /* mmSoundStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03A1FD5E1A8FCCF60012741E /* mmSoundStream.cpp */; };
+		1C0CAA041AE23140006EFBAB /* bonk~.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C0CAA021AE23140006EFBAB /* bonk~.c */; };
+		1C0CAA081AE2314F006EFBAB /* fiddle~.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C0CAA071AE2314F006EFBAB /* fiddle~.c */; };
+		1C0CAA0D1AE23157006EFBAB /* loop~.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C0CAA0B1AE23157006EFBAB /* loop~.c */; };
+		1C0CAA111AE2315D006EFBAB /* lrshift~.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C0CAA101AE2315D006EFBAB /* lrshift~.c */; };
+		1C0CAA1B1AE2317D006EFBAB /* sigmund~.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C0CAA1A1AE2317D006EFBAB /* sigmund~.c */; };
 		38F9C64BAD4402CD15668A2C /* ofxAudioFeaturesChannel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91821B92C0988056EC2F9256 /* ofxAudioFeaturesChannel.cpp */; };
 		5A4349E9754D6FA14C0F2A3A /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FC5DA1C87211D4F6377DA719 /* tinyxmlparser.cpp */; };
 		63B57AC5BF4EF088491E0317 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50DF87D612C5AAE17AAFA6C0 /* ofxXmlSettings.cpp */; };
@@ -259,6 +264,23 @@
 		092ED5D85770D7E2C67849FA /* musicutils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = musicutils.h; path = ../../../addons/ofxAudioFeatures/libs/aubio/include/aubio/musicutils.h; sourceTree = SOURCE_ROOT; };
 		10DB41C23E0C6B451B577677 /* cvec.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = cvec.h; path = ../../../addons/ofxAudioFeatures/libs/aubio/include/aubio/cvec.h; sourceTree = SOURCE_ROOT; };
 		11624C3A46B624C1CFD76949 /* tempo.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tempo.h; path = ../../../addons/ofxAudioFeatures/libs/aubio/include/aubio/tempo/tempo.h; sourceTree = SOURCE_ROOT; };
+		1C0CAA011AE23140006EFBAB /* bonk~-help.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "bonk~-help.pd"; sourceTree = "<group>"; };
+		1C0CAA021AE23140006EFBAB /* bonk~.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "bonk~.c"; sourceTree = "<group>"; };
+		1C0CAA031AE23140006EFBAB /* templates.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = templates.txt; sourceTree = "<group>"; };
+		1C0CAA061AE2314F006EFBAB /* fiddle~-help.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fiddle~-help.pd"; sourceTree = "<group>"; };
+		1C0CAA071AE2314F006EFBAB /* fiddle~.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "fiddle~.c"; sourceTree = "<group>"; };
+		1C0CAA0A1AE23157006EFBAB /* loop~-help.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "loop~-help.pd"; sourceTree = "<group>"; };
+		1C0CAA0B1AE23157006EFBAB /* loop~.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "loop~.c"; sourceTree = "<group>"; };
+		1C0CAA0C1AE23157006EFBAB /* test-loop~.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-loop~.pd"; sourceTree = "<group>"; };
+		1C0CAA0F1AE2315D006EFBAB /* lrshift~-help.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "lrshift~-help.pd"; sourceTree = "<group>"; };
+		1C0CAA101AE2315D006EFBAB /* lrshift~.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "lrshift~.c"; sourceTree = "<group>"; };
+		1C0CAA131AE23165006EFBAB /* notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = notes.txt; sourceTree = "<group>"; };
+		1C0CAA141AE23165006EFBAB /* pdsched.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pdsched.c; sourceTree = "<group>"; };
+		1C0CAA151AE23165006EFBAB /* pd~-help.pd */ = {isa = PBXFileReference; lastKnownFileType = text; path = "pd~-help.pd"; sourceTree = "<group>"; };
+		1C0CAA161AE23165006EFBAB /* pd~-subprocess.pd */ = {isa = PBXFileReference; lastKnownFileType = text; path = "pd~-subprocess.pd"; sourceTree = "<group>"; };
+		1C0CAA171AE23165006EFBAB /* pd~.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "pd~.c"; sourceTree = "<group>"; };
+		1C0CAA191AE2317D006EFBAB /* sigmund~-help.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sigmund~-help.pd"; sourceTree = "<group>"; };
+		1C0CAA1A1AE2317D006EFBAB /* sigmund~.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "sigmund~.c"; sourceTree = "<group>"; };
 		1EBFBE0F709279753850E929 /* filterbank.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = filterbank.h; path = ../../../addons/ofxAudioFeatures/libs/aubio/include/aubio/spectral/filterbank.h; sourceTree = SOURCE_ROOT; };
 		2044F74BD2D992DFB2F6E7DC /* c_weighting.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = c_weighting.h; path = ../../../addons/ofxAudioFeatures/libs/aubio/include/aubio/temporal/c_weighting.h; sourceTree = SOURCE_ROOT; };
 		26B1E3FC6B1F730AA88DA332 /* fft.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = fft.h; path = ../../../addons/ofxAudioFeatures/libs/aubio/include/aubio/spectral/fft.h; sourceTree = SOURCE_ROOT; };
@@ -446,11 +468,16 @@
 		03537BAF1AD7942F000468A4 /* extra */ = {
 			isa = PBXGroup;
 			children = (
+				1C0CAA001AE23140006EFBAB /* bonk~ */,
 				03537BB01AD7942F000468A4 /* choice */,
 				03537BB31AD7942F000468A4 /* complex-mod~-help.pd */,
 				03537BB41AD7942F000468A4 /* complex-mod~.pd */,
+				1C0CAA051AE2314F006EFBAB /* fiddle~ */,
 				03537BB51AD7942F000468A4 /* hilbert~-help.pd */,
 				03537BB61AD7942F000468A4 /* hilbert~.pd */,
+				1C0CAA091AE23157006EFBAB /* loop~ */,
+				1C0CAA0E1AE2315D006EFBAB /* lrshift~ */,
+				1C0CAA121AE23165006EFBAB /* pd~ */,
 				03537BB71AD7942F000468A4 /* pique */,
 				03537BBA1AD7942F000468A4 /* README.txt */,
 				03537BBB1AD7942F000468A4 /* rev1-final.pd */,
@@ -461,6 +488,7 @@
 				03537BC01AD7942F000468A4 /* rev2~.pd */,
 				03537BC11AD7942F000468A4 /* rev3~-help.pd */,
 				03537BC21AD7942F000468A4 /* rev3~.pd */,
+				1C0CAA181AE2317D006EFBAB /* sigmund~ */,
 				03537BC31AD7942F000468A4 /* stdout */,
 			);
 			path = extra;
@@ -616,6 +644,65 @@
 				8CEE0F81B84D3CD30ACD70C9 /* scale.h */,
 			);
 			name = utils;
+			sourceTree = "<group>";
+		};
+		1C0CAA001AE23140006EFBAB /* bonk~ */ = {
+			isa = PBXGroup;
+			children = (
+				1C0CAA011AE23140006EFBAB /* bonk~-help.pd */,
+				1C0CAA021AE23140006EFBAB /* bonk~.c */,
+				1C0CAA031AE23140006EFBAB /* templates.txt */,
+			);
+			path = "bonk~";
+			sourceTree = "<group>";
+		};
+		1C0CAA051AE2314F006EFBAB /* fiddle~ */ = {
+			isa = PBXGroup;
+			children = (
+				1C0CAA061AE2314F006EFBAB /* fiddle~-help.pd */,
+				1C0CAA071AE2314F006EFBAB /* fiddle~.c */,
+			);
+			path = "fiddle~";
+			sourceTree = "<group>";
+		};
+		1C0CAA091AE23157006EFBAB /* loop~ */ = {
+			isa = PBXGroup;
+			children = (
+				1C0CAA0A1AE23157006EFBAB /* loop~-help.pd */,
+				1C0CAA0B1AE23157006EFBAB /* loop~.c */,
+				1C0CAA0C1AE23157006EFBAB /* test-loop~.pd */,
+			);
+			path = "loop~";
+			sourceTree = "<group>";
+		};
+		1C0CAA0E1AE2315D006EFBAB /* lrshift~ */ = {
+			isa = PBXGroup;
+			children = (
+				1C0CAA0F1AE2315D006EFBAB /* lrshift~-help.pd */,
+				1C0CAA101AE2315D006EFBAB /* lrshift~.c */,
+			);
+			path = "lrshift~";
+			sourceTree = "<group>";
+		};
+		1C0CAA121AE23165006EFBAB /* pd~ */ = {
+			isa = PBXGroup;
+			children = (
+				1C0CAA131AE23165006EFBAB /* notes.txt */,
+				1C0CAA141AE23165006EFBAB /* pdsched.c */,
+				1C0CAA151AE23165006EFBAB /* pd~-help.pd */,
+				1C0CAA161AE23165006EFBAB /* pd~-subprocess.pd */,
+				1C0CAA171AE23165006EFBAB /* pd~.c */,
+			);
+			path = "pd~";
+			sourceTree = "<group>";
+		};
+		1C0CAA181AE2317D006EFBAB /* sigmund~ */ = {
+			isa = PBXGroup;
+			children = (
+				1C0CAA191AE2317D006EFBAB /* sigmund~-help.pd */,
+				1C0CAA1A1AE2317D006EFBAB /* sigmund~.c */,
+			);
+			path = "sigmund~";
 			sourceTree = "<group>";
 		};
 		1F4FB5C423662B96ADFDCC0B /* ofxXmlSettings */ = {
@@ -971,6 +1058,7 @@
 				03537C5F1AD79430000468A4 /* m_memory.c in Sources */,
 				03537C611AD79430000468A4 /* m_pd.c in Sources */,
 				03537C491AD79430000468A4 /* g_graph.c in Sources */,
+				1C0CAA1B1AE2317D006EFBAB /* sigmund~.c in Sources */,
 				DB0886176363032DAB378E33 /* LICENSE in Sources */,
 				03537C6A1AD79430000468A4 /* s_print.c in Sources */,
 				03537C531AD79430000468A4 /* g_template.c in Sources */,
@@ -983,6 +1071,7 @@
 				03537C541AD79430000468A4 /* g_text.c in Sources */,
 				03537C4D1AD79430000468A4 /* g_io.c in Sources */,
 				03537C641AD79430000468A4 /* s_audio_dummy.c in Sources */,
+				1C0CAA041AE23140006EFBAB /* bonk~.c in Sources */,
 				03537C4A1AD79430000468A4 /* g_guiconnect.c in Sources */,
 				03537C6D1AD79430000468A4 /* x_arithmetic.c in Sources */,
 				03537C5D1AD79430000468A4 /* m_conf.c in Sources */,
@@ -993,12 +1082,14 @@
 				03537C3F1AD79430000468A4 /* d_misc.c in Sources */,
 				03537C741AD79430000468A4 /* x_net.c in Sources */,
 				03537C471AD79430000468A4 /* g_canvas.c in Sources */,
+				1C0CAA111AE2315D006EFBAB /* lrshift~.c in Sources */,
 				03537C691AD79430000468A4 /* s_path.c in Sources */,
 				03537C3B1AD79430000468A4 /* d_fftroutine.c in Sources */,
 				03537C681AD79430000468A4 /* s_main.c in Sources */,
 				03537C731AD79430000468A4 /* x_misc.c in Sources */,
 				03537C631AD79430000468A4 /* s_audio.c in Sources */,
 				03537C521AD79430000468A4 /* g_scalar.c in Sources */,
+				1C0CAA081AE2314F006EFBAB /* fiddle~.c in Sources */,
 				03537C661AD79430000468A4 /* s_inter.c in Sources */,
 				03537C701AD79430000468A4 /* x_interface.c in Sources */,
 				03537C341AD79430000468A4 /* d_arithmetic.c in Sources */,
@@ -1017,6 +1108,7 @@
 				03537C461AD79430000468A4 /* g_bang.c in Sources */,
 				03537C401AD79430000468A4 /* d_osc.c in Sources */,
 				03537C601AD79430000468A4 /* m_obj.c in Sources */,
+				1C0CAA0D1AE23157006EFBAB /* loop~.c in Sources */,
 				03537C2D1AD79430000468A4 /* s_libpdmidi.c in Sources */,
 				03537C351AD79430000468A4 /* d_array.c in Sources */,
 				03537C5C1AD79430000468A4 /* m_class.c in Sources */,

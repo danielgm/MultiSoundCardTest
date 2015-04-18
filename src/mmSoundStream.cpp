@@ -3,28 +3,31 @@
 mmSoundStream::mmSoundStream() {
 	_inputBuffer = NULL;
 	_outputBuffer = NULL;
-	_outputStream = NULL;
 }
 
 mmSoundStream::~mmSoundStream() {
-	{
-		ofMutex::ScopedLock lock(*_audioProcessingMutex);
-		_soundStream.close();
+  ofMutex::ScopedLock lock(*_audioProcessingMutex);
 
-		delete[] _inputBuffer;
-		delete[] _outputBuffer;
-	}
+  _soundStream.close();
+
+  delete[] _inputBuffer;
+  delete[] _outputBuffer;
+
+  cout << "mmSoundStream(" << _streamId << ") died." << endl;
 }
 
 void mmSoundStream::setup(
+    mmStreamManager* streamManager,
+    int streamId,
 		int deviceId,
 		int numOutputChannels,
 		int numInputChannels,
 		int bufferSize,
 		ofMutex* audioProcessingMutex) {
-	size_t sampleRate = 44100;
-	size_t ticksPerBuffer = 8;
+  size_t sampleRate = 44100;
 
+  _streamManager = streamManager;
+  _streamId = streamId;
 	_deviceId = deviceId;
 	_audioProcessingMutex = audioProcessingMutex;
 
@@ -32,15 +35,19 @@ void mmSoundStream::setup(
 	_numInputChannels = numInputChannels;
 	_bufferSize = bufferSize;
 
-	_inputBuffer = new float[_numInputChannels * _bufferSize];
-	for (int i = 0; i < _numInputChannels * _bufferSize; ++i) {
-		_inputBuffer[i] = 0;
-	}
+  {
+    ofMutex::ScopedLock lock(*_audioProcessingMutex);
 
-	_outputBuffer = new float[_numInputChannels * _bufferSize];
-	for (int i = 0; i < _numInputChannels * _bufferSize; ++i) {
-		_outputBuffer[i] = 0;
-	}
+    _inputBuffer = new float[_numInputChannels * _bufferSize];
+    for (int i = 0; i < _numInputChannels * _bufferSize; ++i) {
+      _inputBuffer[i] = 0;
+    }
+
+    _outputBuffer = new float[_numInputChannels * _bufferSize];
+    for (int i = 0; i < _numInputChannels * _bufferSize; ++i) {
+      _outputBuffer[i] = 0;
+    }
+  }
 
 	_soundStream.setDeviceID(deviceId);
 	_soundStream.setup(
@@ -51,6 +58,8 @@ void mmSoundStream::setup(
 			2 * (_numOutputChannels + _numInputChannels));
 	_soundStream.setInput(this);
 	_soundStream.setOutput(this);
+
+  cout << "mmSoundStream(" << _streamId << ") created." << endl;
 }
 
 size_t mmSoundStream::getNumOutputChannels() {
@@ -73,36 +82,30 @@ float* mmSoundStream::getOutputBufferRef() {
 	return _outputBuffer;
 }
 
-void mmSoundStream::setOutputStream(mmSoundStream* outputStream) {
-	_outputStream = outputStream;
-}
-
 void mmSoundStream::audioReceived(float* input, int bufferSize, int numChannels) {
-	ofMutex::ScopedLock lock(*_audioProcessingMutex);
+  _streamManager->audioIn(_streamId, input, bufferSize, numChannels);
 
-	for (size_t i = 0; i < bufferSize; ++i) {
-		for (size_t c = 0; c < _numInputChannels && c < numChannels; ++c) {
-			_inputBuffer[i * _numInputChannels + c] = input[i * numChannels + c];
-		}
-	}
+  {
+    ofMutex::ScopedLock lock(*_audioProcessingMutex);
+
+    for (size_t c = 0; c < _numInputChannels && c < numChannels; ++c) {
+      for (size_t i = 0; i < bufferSize; ++i) {
+        _inputBuffer[c * bufferSize + i] = input[c * bufferSize + i];
+      }
+    }
+  }
 }
 
 void mmSoundStream::audioRequested(float* output, int bufferSize, int numChannels) {
-	ofMutex::ScopedLock lock(*_audioProcessingMutex);
+  _streamManager->audioOut(_streamId, output, bufferSize, numChannels);
 
-	if (_outputStream != NULL) {
-		// TODO: Handle different buffer sizes.
-		float* inputBuffer = _outputStream->getInputBufferRef();
-		size_t numInputChannels = _outputStream->getNumInputChannels();
-		for (size_t i = 0; i < bufferSize; ++i) {
-			for (size_t c = 0; c < numChannels || c < _numOutputChannels; ++c) {
-				if (c < numChannels) {
-					output[i * numChannels + c] = inputBuffer[i * numInputChannels + (c % numInputChannels)];
-				}
-				if (c < _numOutputChannels) {
-					_outputBuffer[i * _numOutputChannels + c] = inputBuffer[i * numInputChannels + (c % numInputChannels)];
-				}
-			}
-		}
-	}
+  {
+    ofMutex::ScopedLock lock(*_audioProcessingMutex);
+
+    for (size_t c = 0; c < _numOutputChannels; ++c) {
+      for (size_t i = 0; i < bufferSize; ++i) {
+          _outputBuffer[c * bufferSize + i] = output[i * numChannels + (c % numChannels)];
+      }
+    }
+  }
 }

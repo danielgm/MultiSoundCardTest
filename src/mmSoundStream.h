@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxPd.h"
+#include "mmStreamManager.h"
 
 class mmSoundStream : public ofBaseSoundInput, public ofBaseSoundOutput {
 
@@ -9,6 +9,8 @@ public:
 	mmSoundStream();
 	~mmSoundStream();
 	void setup(
+      mmStreamManager* streamManager,
+      int streamId,
 			int deviceId,
 			int numOutputChannels,
 			int numInputChannels,
@@ -22,13 +24,13 @@ public:
 
 	float* getInputBufferRef();
 	float* getOutputBufferRef();
-	void setOutputStream(mmSoundStream* outputStream);
 
 	void audioReceived(float* input, int bufferSize, int nChannels);
 	void audioRequested(float* output, int bufferSize, int nChannels);
 
 private:
-	ofxPd pd;
+  mmStreamManager* _streamManager;
+  int _streamId;
 	int _deviceId;
 
 	ofMutex* _audioProcessingMutex;
@@ -41,5 +43,4 @@ private:
 
 	float* _inputBuffer;
 	float* _outputBuffer;
-	mmSoundStream* _outputStream;
 };

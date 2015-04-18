@@ -21,6 +21,7 @@ public:
 	size_t getBufferSize();
 
 	float* getInputBufferRef();
+	float* getOutputBufferRef();
 	void setOutputStream(mmSoundStream* outputStream);
 
 	void audioReceived(float* input, int bufferSize, int nChannels);
@@ -39,5 +40,6 @@ private:
 	size_t _bufferSize;
 
 	float* _inputBuffer;
+	float* _outputBuffer;
 	mmSoundStream* _outputStream;
 };

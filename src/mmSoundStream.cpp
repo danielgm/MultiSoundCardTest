@@ -2,6 +2,7 @@
 
 mmSoundStream::mmSoundStream() {
 	_inputBuffer = NULL;
+	_outputBuffer = NULL;
 	_outputStream = NULL;
 }
 
@@ -11,6 +12,7 @@ mmSoundStream::~mmSoundStream() {
 		_soundStream.close();
 
 		delete[] _inputBuffer;
+		delete[] _outputBuffer;
 	}
 }
 
@@ -20,8 +22,8 @@ void mmSoundStream::setup(
 		int numInputChannels,
 		int bufferSize,
 		ofMutex* audioProcessingMutex) {
-  size_t sampleRate = 44100;
-  size_t ticksPerBuffer = 8;
+	size_t sampleRate = 44100;
+	size_t ticksPerBuffer = 8;
 
 	_deviceId = deviceId;
 	_audioProcessingMutex = audioProcessingMutex;
@@ -35,13 +37,18 @@ void mmSoundStream::setup(
 		_inputBuffer[i] = 0;
 	}
 
+	_outputBuffer = new float[_numInputChannels * _bufferSize];
+	for (int i = 0; i < _numInputChannels * _bufferSize; ++i) {
+		_outputBuffer[i] = 0;
+	}
+
 	_soundStream.setDeviceID(deviceId);
 	_soundStream.setup(
-      _numOutputChannels,
-      _numInputChannels,
-      sampleRate,
-      _bufferSize,
-      2 * (_numOutputChannels + _numInputChannels));
+			_numOutputChannels,
+			_numInputChannels,
+			sampleRate,
+			_bufferSize,
+			2 * (_numOutputChannels + _numInputChannels));
 	_soundStream.setInput(this);
 	_soundStream.setOutput(this);
 }
@@ -60,6 +67,10 @@ size_t mmSoundStream::getBufferSize() {
 
 float* mmSoundStream::getInputBufferRef() {
 	return _inputBuffer;
+}
+
+float* mmSoundStream::getOutputBufferRef() {
+	return _outputBuffer;
 }
 
 void mmSoundStream::setOutputStream(mmSoundStream* outputStream) {
@@ -84,8 +95,13 @@ void mmSoundStream::audioRequested(float* output, int bufferSize, int numChannel
 		float* inputBuffer = _outputStream->getInputBufferRef();
 		size_t numInputChannels = _outputStream->getNumInputChannels();
 		for (size_t i = 0; i < bufferSize; ++i) {
-			for (size_t c = 0; c < numChannels; ++c) {
-				output[i * numChannels + c] = inputBuffer[i * numInputChannels + (c % numInputChannels)];
+			for (size_t c = 0; c < numChannels || c < _numOutputChannels; ++c) {
+				if (c < numChannels) {
+					output[i * numChannels + c] = inputBuffer[i * numInputChannels + (c % numInputChannels)];
+				}
+				if (c < _numOutputChannels) {
+					_outputBuffer[i * _numOutputChannels + c] = inputBuffer[i * numInputChannels + (c % numInputChannels)];
+				}
 			}
 		}
 	}

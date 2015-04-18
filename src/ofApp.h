@@ -21,7 +21,7 @@ class ofApp : public ofBaseApp{
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
-	void drawSoundStream(mmSoundStream* ss, int x, int y, int width, int height);
+	void drawSoundStream(float* buffer, int numChannels, int bufferSize, int x, int y, int width, int height);
 
 	ofMutex _audioProcessingMutex;
 

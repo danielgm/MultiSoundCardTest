@@ -88,9 +88,9 @@ void mmSoundStream::audioReceived(float* input, int bufferSize, int numChannels)
   {
     ofMutex::ScopedLock lock(*_audioProcessingMutex);
 
-    for (size_t c = 0; c < _numInputChannels && c < numChannels; ++c) {
+    for (size_t c = 0; c < _numInputChannels; ++c) {
       for (size_t i = 0; i < bufferSize; ++i) {
-        _inputBuffer[c * bufferSize + i] = input[c * bufferSize + i];
+        _inputBuffer[c * bufferSize + i] = input[i * numChannels + (c % numChannels)];
       }
     }
   }

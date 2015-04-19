@@ -33,12 +33,12 @@ void ofApp::setup() {
     ofMutex::ScopedLock lock(_audioProcessingMutex);
 
     _pdInputBuffer = new float[_numSoundStreams * _numInputChannels * _bufferSize];
-    for (int i = 0; i < _numInputChannels * _bufferSize; ++i) {
+    for (size_t i = 0; i < _numSoundStreams * _numInputChannels * _bufferSize; ++i) {
       _pdInputBuffer[i] = 0;
     }
 
     _pdOutputBuffer = new float[_numSoundStreams * _numOutputChannels * _bufferSize];
-    for (int i = 0; i < _numOutputChannels * _bufferSize; ++i) {
+    for (size_t i = 0; i < _numSoundStreams * _numOutputChannels * _bufferSize; ++i) {
       _pdOutputBuffer[i] = 0;
     }
   }
@@ -82,14 +82,16 @@ void ofApp::exit() {
 void ofApp::audioIn(int streamId, float* input, int bufferSize, int numChannels) {
   ofMutex::ScopedLock lock(_audioProcessingMutex);
 
-  for (int c = 0; c < numChannels; ++c) {
-    for (int i = 0; i < bufferSize; ++i) {
-      _pdInputBuffer[(streamId * _numInputChannels + c) * bufferSize + i] =
-        input[c * bufferSize + i];
+  for (size_t i = 0; i < bufferSize; ++i) {
+    for (size_t c = 0; c < numChannels; ++c) {
+      _pdInputBuffer[i * _numSoundStreams * _numInputChannels + streamId * _numInputChannels  + c] =
+        input[i * numChannels + c];
     }
   }
 
-  _pd.audioIn(_pdInputBuffer, bufferSize, _numSoundStreams * _numInputChannels);
+  if (streamId == 0) {
+    _pd.audioIn(_pdInputBuffer, bufferSize, _numSoundStreams * _numInputChannels);
+  }
 }
 
 void ofApp::audioOut(int streamId, float* output, int bufferSize, int numChannels) {
@@ -99,8 +101,8 @@ void ofApp::audioOut(int streamId, float* output, int bufferSize, int numChannel
     _pd.audioOut(_pdOutputBuffer, bufferSize, _numSoundStreams * _numOutputChannels);
   }
 
-  for (int c = 0; c < numChannels; ++c) {
-    for (int i = 0; i < bufferSize; ++i) {
+  for (size_t i = 0; i < bufferSize; ++i) {
+    for (size_t c = 0; c < numChannels; ++c) {
       output[i * numChannels + c] =
         _pdOutputBuffer[i * _numSoundStreams * _numOutputChannels + streamId * _numOutputChannels + c];
     }
@@ -108,37 +110,8 @@ void ofApp::audioOut(int streamId, float* output, int bufferSize, int numChannel
 }
 
 void ofApp::keyPressed(int key) {
-
 }
 
 void ofApp::keyReleased(int key) {
-
 }
 
-void ofApp::mouseMoved(int x, int y ) {
-
-}
-
-void ofApp::mouseDragged(int x, int y, int button) {
-
-}
-
-void ofApp::mousePressed(int x, int y, int button) {
-
-}
-
-void ofApp::mouseReleased(int x, int y, int button) {
-
-}
-
-void ofApp::windowResized(int w, int h) {
-
-}
-
-void ofApp::gotMessage(ofMessage msg) {
-
-}
-
-void ofApp::dragEvent(ofDragInfo dragInfo) {
-
-}
